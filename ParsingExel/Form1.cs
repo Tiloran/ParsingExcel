@@ -43,7 +43,7 @@ namespace ParsingExel
             DataTable dt = new DataTable();
             conn.Open();
             dt = conn.GetSchema("Tables");
-            bool drop = false;
+            
             foreach (var dr in dt.Rows)
             {
                 if (!(((DataRow)dr)["TABLE_NAME"].ToString().Contains("Print_Area")))
@@ -105,11 +105,9 @@ namespace ParsingExel
         }
 
         private void Divide_button_Click(object sender, EventArgs e)
-        {
-           
-                  
+        {              
             DataTable dt = ImportToDataTable(textBox_Path.Text, TableVariantsBox.SelectedItem.ToString() );
-            textBox_result.Text = Parsing2_3Doors.AddtoDB2_3Doors(dt);
+            textBox_result.Text = ParsingCorner.AddtoDBCorner(dt);
             dataGridView1.DataSource = dt;
         }
 

@@ -1,70 +1,182 @@
-﻿//using ParsingExel.Entities;
-//using System;
-//using System.Collections.Generic;
-//using System.Data;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using ParsingExel.Entities;
+using ParsingExel.Enum;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace ParsingExel.Parsing
-//{
-//    public static class ParsingCorner
-//    {
-//        public static void AddtoDBCorner(DataTable dt)
-//        {
-//            List<Furniture> furniture = new List<Furniture> { };
-//            List<Closet> closed = new List<Closet> { };
-//            List<ListOfClosetOptions> ListOption = new List<ListOfClosetOptions> { };
-//            int row_Index = 0;
-//            int closedId = 0;
+namespace ParsingExel.Parsing
+{
+    public static class ParsingCorner
+    {
+        public static string AddtoDBCorner(DataTable dt)
+        {
+            List<Closet> closet = new List<Closet> { };
+            int rowIndex = 0;
+            decimal[] depth = new decimal[2];
+            decimal[] height = new decimal[2];
+            int []depthAndHeightPostion = new int[2];
+            for(int i = 0; i< dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i][5].ToString().Contains("глубина"))
+                    depthAndHeightPostion[0]=i;
+                if (dt.Rows[i][5].ToString().Contains("высота"))
+                    depthAndHeightPostion[1]=i;
+            }
+            try
+            {
+                depth[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][5].ToString().Replace("глубина ", ""));
+                depth[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][6].ToString().Replace("глубина ", ""));
+                height[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][5].ToString().Replace("высота ", ""));
+                height[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][6].ToString().Replace("высота ", ""));
+            }
+            catch
+            {
+                return "Ошибка в определении глубины.";
+            }
 
 
-//            while (row_Index < dt.Rows.Count)
-//            {
-//                if (dt.Rows[row_Index][1].ToString() != "")
-//                {
-//                    furniture.Add(new Furniture
-//                    {
-//                        NameType = "Шкаф-купе",
-//                        Width = Convert.ToDecimal(dt.Rows[row_Index][1].ToString()),
-//                        Depth = Convert.ToDecimal(dt.Rows[row_Index][2].ToString())
-//                    });
-//                    closed.Add(new Closet
-//                    {
-//                        ClosetId = closedId,
-//                        DoorsNumber = Convert.ToInt32(dt.Rows[row_Index][3].ToString()),
-//                        Type = "угловой",
-//                        SandPrice = Convert.ToDecimal(dt.Rows[row_Index][7].ToString()),
-//                        BambPrice = Convert.ToDecimal(dt.Rows[row_Index][8].ToString()),
-//                        Amalgam1Price = Convert.ToDecimal(dt.Rows[row_Index][9].ToString()),
-//                        Amalgam2Price = Convert.ToDecimal(dt.Rows[row_Index][10].ToString()),
-//                        Amalgam3Price = Convert.ToDecimal(dt.Rows[row_Index][11].ToString()),
-//                        OraPrice = Convert.ToDecimal(dt.Rows[row_Index][12].ToString()),
-//                        MirPrice = Convert.ToDecimal(dt.Rows[row_Index][13].ToString())
-//                    });
-//                    ListOption.Add(new ListOfClosetOptions { });
-//                    int ListCurrentCell = ListOption.Count - 1;
-//                    ListOption[ListCurrentCell].CornerHeight.Add(new ClosetCornerHeight
-//                    {
-//                        Model = dt.Rows[row_Index][4].ToString(),
-//                        ClosetCornerheight = 2150,
-//                        ClosetCornerHeightPrice = Convert.ToDecimal(dt.Rows[row_Index][5].ToString()),
-//                        ClosetId = closedId
-//                    });
-//                    ListOption[ListCurrentCell].CornerHeight.Add(new ClosetCornerHeight
-//                    {
-//                        Model = dt.Rows[row_Index][4].ToString(),
-//                        ClosetCornerheight = 2400,
-//                        ClosetCornerHeightPrice = Convert.ToDecimal(dt.Rows[row_Index][6].ToString()),
-//                        ClosetId = closedId++
-//                    });
-//                    row_Index++;
-//                }
-//                else
-//                {
-//                    row_Index++;
-//                }
-//            }
-//        }
-//    }
-//}
+            while (rowIndex < dt.Rows.Count)
+            {
+                if (dt.Rows[rowIndex][1].ToString() != "")
+                {                    
+                    decimal checkForBeginOfString = 0;
+                    if (!decimal.TryParse(dt.Rows[rowIndex][1].ToString(), out checkForBeginOfString))
+                        rowIndex += 2;
+                    closet.Add(new Closet { });
+                    int closetCurrentCell = closet.Count - 1;
+                    try
+                    {
+                        closet[closetCurrentCell].Width = Convert.ToDecimal(dt.Rows[rowIndex][1].ToString());
+                        if (rowIndex < depthAndHeightPostion[0])
+                        {
+                            closet[closetCurrentCell].Height = Convert.ToDecimal(dt.Rows[rowIndex][2].ToString());
+                        }
+                        else
+                        {
+                            closet[closetCurrentCell].Depth = Convert.ToDecimal(dt.Rows[rowIndex][2].ToString());
+                        }                        
+                        closet[closetCurrentCell].DoorsNumber = Convert.ToInt32(dt.Rows[rowIndex][3].ToString());
+                        closet[closetCurrentCell].Type = ClosetType.Doors5;                        
+                        closet[closetCurrentCell].Description = null;
+                    }
+                    catch
+                    {
+                        return "Ошибка в основном блоке.";
+                    }
+                    try
+                    {
+                        GetDepthHeight(closet, closetCurrentCell, dt, rowIndex, depth, height, depthAndHeightPostion);
+                    }
+                    catch
+                    {
+                        return "Ошибка в получении модели или цены (глубины, высоты).";
+                    }
+                    try
+                    {
+                        GetColor(closet, closetCurrentCell, dt, rowIndex);
+                    }
+                    catch
+                    {
+                        return "Ошибка в получении цены цвета.";
+                    }
+                    try
+                    {
+                        GetAmalgam(closet, closetCurrentCell, dt, rowIndex);
+                    }
+                    catch
+                    {
+                        return "Ошибка в получении цены амальгамы.";
+                    }
+                    try
+                    {
+                        GetGlass(closet, closetCurrentCell, dt, rowIndex);
+                    }
+                    catch
+                    {
+                        return "Ошибка в получении цены стекла.";
+                    }
+                    rowIndex++;
+                }
+                else
+                {
+                    rowIndex++;
+                }
+            }
+            return "GOOD";
+        }
+
+        private static void GetGlass(List<Closet> closet, int closetCurrentCell, DataTable dt, int rowIndex)
+        {
+            GlassType Glass = 0;
+            int ColumnIndex = 12;
+            for (int i = 0; i < 1; i++)
+            {
+                closet[closetCurrentCell].Closetglass.Add(new ClosetGlass { });
+                int closetColorCurrentCell = closet[closetCurrentCell].Closetglass.Count - 1;
+                closet[closetCurrentCell].Closetglass[closetColorCurrentCell].Glass = Glass++;
+                closet[closetCurrentCell].Closetglass[closetColorCurrentCell].GlassPrice = Convert.ToDecimal(dt.Rows[rowIndex][ColumnIndex++].ToString());
+            }
+        }
+
+        private static void GetAmalgam(List<Closet> closet, int closetCurrentCell, DataTable dt, int rowIndex)
+        {
+            AmalgamType amalgam = 0;
+            int ColumnIndex = 9;
+            for (int i = 0; i < 3; i++)
+            {
+                closet[closetCurrentCell].Closetamalgam.Add(new ClosetAmalgam { });
+                int closetAmalgamCurrentCell = closet[closetCurrentCell].Closetamalgam.Count - 1;
+                closet[closetCurrentCell].Closetamalgam[closetAmalgamCurrentCell].Amalgam = amalgam++;
+                closet[closetCurrentCell].Closetamalgam[closetAmalgamCurrentCell].AmalgamPrice = Convert.ToDecimal(dt.Rows[rowIndex][ColumnIndex++].ToString());
+            }
+        }
+
+        private static void GetDepthHeight(List<Closet> closet, int closetCurrentCell, DataTable dt, int rowIndex, decimal[] depth, decimal[] height, int[] depthAndHeightPostion)
+        {
+            int columnIndexModel = 4;
+            int columnIndexPrice = 5;
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (columnIndexPrice == 5 && dt.Rows[rowIndex][columnIndexPrice].ToString() == "х")
+                {
+                    i++;
+                    columnIndexPrice++;
+                }
+                else if(columnIndexPrice == 6 && dt.Rows[rowIndex][columnIndexPrice].ToString() == "х")
+                {
+                    break;
+                }
+                closet[closetCurrentCell].Closetcorner.Add(new ClosetCorner { });
+                int closetDepthCurrentCell = closet[closetCurrentCell].Closetcorner.Count - 1;
+                closet[closetCurrentCell].Closetcorner[closetDepthCurrentCell].Model = dt.Rows[rowIndex][columnIndexModel].ToString();
+                if (rowIndex < depthAndHeightPostion[0])
+                {
+                    closet[closetCurrentCell].Closetcorner[closetDepthCurrentCell].ClosetCornerheight = height[i];
+                }
+                else
+                {
+                    closet[closetCurrentCell].Closetcorner[closetDepthCurrentCell].ClosetCornerdepth = depth[i];
+                }                
+                closet[closetCurrentCell].Closetcorner[closetDepthCurrentCell].ClosetCornerPrice =
+                    Convert.ToDecimal(dt.Rows[rowIndex][columnIndexPrice++].ToString());
+            }
+        }
+
+        private static void GetColor(List<Closet> closet, int closetCurrentCell, DataTable dt, int rowIndex)
+        {
+            ColorType Color = 0;
+            int ColumnIndex = 7;
+            for (int i = 0; i < 2; i++)
+            {
+                closet[closetCurrentCell].Closetcolor.Add(new ClosetColor { });
+                int closetColorCurrentCell = closet[closetCurrentCell].Closetcolor.Count - 1;
+                closet[closetCurrentCell].Closetcolor[closetColorCurrentCell].color = Color++;
+                closet[closetCurrentCell].Closetcolor[closetColorCurrentCell].ColorPrice = Convert.ToDecimal(dt.Rows[rowIndex][ColumnIndex++].ToString());
+            }
+        }
+    }
+}
