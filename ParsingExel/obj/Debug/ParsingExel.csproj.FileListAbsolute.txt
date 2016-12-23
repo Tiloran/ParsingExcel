@@ -13,3 +13,11 @@ G:\inetaccess\c#\Rep\ParcingExel\ParsingExel\obj\Debug\ParsingExel.pdb
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\ParsingExel.exe.config
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.exe
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.pdb
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.csprojResolveAssemblyReference.cache
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.Form1.resources
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.Properties.Resources.resources
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\obj\Debug\ParsingExel.csproj.GenerateResource.Cache
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\ParsingExel.exe
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\ParsingExel.pdb
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EPPlus.dll
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EPPlus.xml

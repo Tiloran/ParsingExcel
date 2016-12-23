@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,22 +50,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Closed.cs" />
-    <Compile Include="Entities\ClosedCornerHeight.cs" />
-    <Compile Include="Entities\ClosedDepth.cs" />
-    <Compile Include="Entities\ClosedTVDepth.cs" />
-    <Compile Include="Entities\Furniture.cs" />
-    <Compile Include="Entities\ListOfClosedDepth.cs" />
+    <Compile Include="Entities\Additional.cs" />
+    <Compile Include="Entities\ClosetAmalgam.cs" />
+    <Compile Include="Entities\Closet.cs" />
+    <Compile Include="Entities\ClosetColor.cs" />
+    <Compile Include="Entities\ClosetCorner.cs" />
+    <Compile Include="Entities\ClosetDepth.cs" />
+    <Compile Include="Entities\ClosetGlass.cs" />
+    <Compile Include="Entities\ClosetTVDepth.cs" />
+    <Compile Include="Entities\ColorPrice.cs" />
+    <Compile Include="Entities\Curvilinear.cs" />
+    <Compile Include="Abstraction\ListOfClosetOptions.cs" />
+    <Compile Include="Entities\PaintPrice.cs" />
+    <Compile Include="Entities\Rectilinear.cs" />
+    <Compile Include="Entities\StarkeColor.cs" />
+    <Compile Include="Entities\StarkePaint.cs" />
+    <Compile Include="Enum\AmalgamType.cs" />
+    <Compile Include="Enum\ClosetType.cs" />
+    <Compile Include="Enum\ColorType.cs" />
+    <Compile Include="Enum\GlassType.cs" />
+    <Compile Include="Enum\ItemsName.cs" />
+    <Compile Include="Enum\TestEntities.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Parsing.cs" />
+    <Compile Include="Entities\AdditionalCloset.cs" />
     <Compile Include="Parsing\Parsing2_3Doors.cs" />
     <Compile Include="Parsing\Parsing4Doors.cs" />
     <Compile Include="Parsing\Parsing5Doors.cs" />
+    <Compile Include="Parsing\ParsingAdditional.cs" />
+    <Compile Include="Parsing\ParsingCorner.cs" />
     <Compile Include="Parsing\ParsingTV.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +98,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
