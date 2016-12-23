@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace ParsingExel.Entities
 {
     public class ClosetCorner
     {
+        [Key]
         public int ClosetCornerHeightId { get; set; }
         public string Model { get; set; }
         public decimal? ClosetCornerheight { get; set; }

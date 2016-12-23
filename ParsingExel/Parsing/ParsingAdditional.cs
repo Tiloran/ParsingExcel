@@ -27,9 +27,9 @@ namespace ParsingExel.Parsing
 
             while (tablesComplete != 8)
             {
-                if (dt.Rows[rowIndex][2].ToString() != "" && double.TryParse(dt.Rows[rowIndex][2].ToString(), out checkStringBegin) && tablesComplete == 0)
+                if (dt.Rows[rowIndex][2].ToString() != String.Empty && double.TryParse(dt.Rows[rowIndex][2].ToString(), out checkStringBegin) && tablesComplete == 0)
                 { //Заполнение таблицы AdditionalCloset
-                    while (dt.Rows[rowIndex][2].ToString() != "")
+                    while (dt.Rows[rowIndex][2].ToString() != String.Empty)
                     {
                         additionalcloset.Add(new AdditionalCloset
                         {
@@ -44,12 +44,12 @@ namespace ParsingExel.Parsing
                     tablesComplete++;
                     rowIndex = 0;
                 }
-                if (dt.Rows[rowIndex][12].ToString() != "" && double.TryParse(dt.Rows[rowIndex][12].ToString(), out checkStringBegin) && tablesComplete == 1)
+                if (dt.Rows[rowIndex][12].ToString() != String.Empty && double.TryParse(dt.Rows[rowIndex][12].ToString(), out checkStringBegin) && tablesComplete == 1)
                 { //Заполнение таблицы Additional
                     byte endOfTable = 0; // Нужна для проверки, так как в екселе из-за обьединенных ячеек в ДатаТейбл есть пустые строки.
                     while (endOfTable < 3) // Если 3 строки подряд пустые, выход из цикла.
                     {
-                        if (dt.Rows[rowIndex][12].ToString() != "")
+                        if (dt.Rows[rowIndex][12].ToString() != String.Empty)
                         {
                             additional.Add(new Additional
                             {
@@ -67,7 +67,7 @@ namespace ParsingExel.Parsing
                     tablesComplete++;
                     rowIndex = 0;
                 }
-                if (dt.Rows[rowIndex][7].ToString() != "" && double.TryParse(dt.Rows[rowIndex][7].ToString(), out checkStringBegin) && tablesComplete == 2)
+                if (dt.Rows[rowIndex][7].ToString() != String.Empty && double.TryParse(dt.Rows[rowIndex][7].ToString(), out checkStringBegin) && tablesComplete == 2)
                 { //Заполнение таблицы Rectilinear
                     int columnIndex = 6;
                     for (int i = 0; i < 6; i++)
@@ -107,7 +107,7 @@ namespace ParsingExel.Parsing
                     rowIndex++;
                     while (true)
                     {
-                        if (dt.Rows[rowIndex][12].ToString() != "" && tablesComplete == 4)
+                        if (dt.Rows[rowIndex][12].ToString() != String.Empty && tablesComplete == 4)
                         {
                             for (int i = 0; i < 3; i++)
                             {

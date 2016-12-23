@@ -1,6 +1,7 @@
 ﻿using ParsingExel.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace ParsingExel.Entities
 {
     public class ClosetColor
     {
+        [Key]
         public int ClosetColorId { get; set; }
         public ColorType color { get; set; }
         public decimal ColorPrice { get; set; }

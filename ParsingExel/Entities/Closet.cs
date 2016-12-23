@@ -1,10 +1,12 @@
 ﻿using ParsingExel.Enum;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParsingExel.Entities
 {
     public class Closet
     {
+        [Key]
         public int ClosetId { get; set; }
         public decimal? Width { get; set; }
         public decimal? Height { get; set; }

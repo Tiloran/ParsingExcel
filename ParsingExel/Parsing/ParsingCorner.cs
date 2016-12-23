@@ -13,6 +13,8 @@ namespace ParsingExel.Parsing
     {
         public static string AddtoDBCorner(DataTable dt)
         {
+            const string DEEP = "глубина ";
+            const string HEIGHT = "глубина ";
             List<Closet> closet = new List<Closet> { };
             int rowIndex = 0;
             decimal[] depth = new decimal[2];
@@ -27,10 +29,10 @@ namespace ParsingExel.Parsing
             }
             try
             {
-                depth[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][5].ToString().Replace("глубина ", ""));
-                depth[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][6].ToString().Replace("глубина ", ""));
-                height[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][5].ToString().Replace("высота ", ""));
-                height[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][6].ToString().Replace("высота ", ""));
+                depth[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][5].ToString().Replace(DEEP, String.Empty));
+                depth[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[0]][6].ToString().Replace(DEEP, String.Empty));
+                height[0] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][5].ToString().Replace(HEIGHT, String.Empty));
+                height[1] = Convert.ToDecimal(dt.Rows[depthAndHeightPostion[1]][6].ToString().Replace(HEIGHT, String.Empty));
             }
             catch
             {
@@ -40,7 +42,7 @@ namespace ParsingExel.Parsing
 
             while (rowIndex < dt.Rows.Count)
             {
-                if (dt.Rows[rowIndex][1].ToString() != "")
+                if (dt.Rows[rowIndex][1].ToString() != String.Empty)
                 {                    
                     decimal checkForBeginOfString = 0;
                     if (!decimal.TryParse(dt.Rows[rowIndex][1].ToString(), out checkForBeginOfString))

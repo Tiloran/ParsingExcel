@@ -13,6 +13,7 @@ namespace ParsingExel.Parsing
     {
         public static string AddtoDB4Doors(DataTable dt)
         {
+            const string DEEP = "глубина ";
             List<Closet> closet = new List<Closet> { };
             int rowIndex = 0;
             bool checkForDepth = false;
@@ -20,16 +21,16 @@ namespace ParsingExel.Parsing
 
             while (rowIndex < dt.Rows.Count)
             {
-                if (dt.Rows[rowIndex][1].ToString() != "")
+                if (dt.Rows[rowIndex][1].ToString() != String.Empty)
                 {
                     if (checkForDepth == false)
                     {
                         try
                         {
-                            depth[0] = Convert.ToDecimal(dt.Rows[rowIndex][5].ToString().Replace("глубина ", ""));
-                            depth[1] = Convert.ToDecimal(dt.Rows[rowIndex][6].ToString().Replace("глубина ", ""));
-                            depth[2] = Convert.ToDecimal(dt.Rows[rowIndex][8].ToString().Replace("глубина ", ""));
-                            depth[3] = Convert.ToDecimal(dt.Rows[rowIndex][9].ToString().Replace("глубина ", ""));
+                            depth[0] = Convert.ToDecimal(dt.Rows[rowIndex][5].ToString().Replace(DEEP, String.Empty));
+                            depth[1] = Convert.ToDecimal(dt.Rows[rowIndex][6].ToString().Replace(DEEP, String.Empty));
+                            depth[2] = Convert.ToDecimal(dt.Rows[rowIndex][8].ToString().Replace(DEEP, String.Empty));
+                            depth[3] = Convert.ToDecimal(dt.Rows[rowIndex][9].ToString().Replace(DEEP, String.Empty));
                             checkForDepth = true;
                         }
                         catch

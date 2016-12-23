@@ -21,3 +21,7 @@ G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\ParsingExel.
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\ParsingExel.pdb
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EPPlus.dll
 G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EPPlus.xml
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EntityFramework.dll
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EntityFramework.SqlServer.dll
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EntityFramework.xml
+G:\inetaccess\c#\Rep\ParcingExel\ParsingExcel\ParsingExel\bin\Debug\EntityFramework.SqlServer.xml

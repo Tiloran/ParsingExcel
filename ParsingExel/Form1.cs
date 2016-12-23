@@ -107,7 +107,7 @@ namespace ParsingExel
         private void Divide_button_Click(object sender, EventArgs e)
         {              
             DataTable dt = ImportToDataTable(textBox_Path.Text, TableVariantsBox.SelectedItem.ToString() );
-            textBox_result.Text = ParsingCorner.AddtoDBCorner(dt);
+            textBox_result.Text = Parsing2_3Doors.AddtoDB2_3Doors(dt);
             dataGridView1.DataSource = dt;
         }
 
